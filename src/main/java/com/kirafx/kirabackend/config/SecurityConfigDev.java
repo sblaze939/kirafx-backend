@@ -1,4 +1,3 @@
-
 package com.kirafx.kirabackend.config;
 
 import org.springframework.context.annotation.Bean;
@@ -12,13 +11,20 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfigDev {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-            .formLogin(login -> login.disable())
-            .httpBasic(basic -> basic.disable());
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                        "/h2-console/**",
+                        "/auth/register",
+                        "/auth/login",
+                        "/test"
+                ).permitAll()
+                .anyRequest().authenticated()
+                )
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         return http.build();
     }
