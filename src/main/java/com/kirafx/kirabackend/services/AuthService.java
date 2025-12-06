@@ -11,6 +11,7 @@ import com.kirafx.kirabackend.entities.User;
 import com.kirafx.kirabackend.exception.InvalidCredentialsException;
 import com.kirafx.kirabackend.exception.ResourceAlreadyExistsException;
 import com.kirafx.kirabackend.repositories.UserRepository;
+import com.kirafx.kirabackend.utils.enums.UserRole;
 
 @Service
 public class AuthService {
@@ -38,7 +39,7 @@ public class AuthService {
         user.setUserFirstName(req.getUserFirstName());
         user.setUserLastName(req.getUserLastName());
         user.setUserPhone(req.getUserPhone());
-        user.setUserRole("USER");
+        user.setUserRole(UserRole.USER.toString());
         user.setPassword(encoder.encode(req.getPassword()));
 
         userRepo.save(user);

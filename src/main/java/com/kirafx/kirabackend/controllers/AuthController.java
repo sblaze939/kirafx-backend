@@ -12,6 +12,8 @@ import com.kirafx.kirabackend.dto.AuthResponse;
 import com.kirafx.kirabackend.dto.LoginRequest;
 import com.kirafx.kirabackend.dto.RegisterRequest;
 import com.kirafx.kirabackend.services.AuthService;
+import static com.kirafx.kirabackend.utils.constants.AppMessages.USER_LOGGED_IN_SUCCESS;
+import static com.kirafx.kirabackend.utils.constants.AppMessages.USER_REGISTERED_SUCCESS;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,12 +26,12 @@ public class AuthController {
     @PostMapping("/register")
     public ApiResponseGenerator<AuthResponse> register(@RequestBody RegisterRequest req) {
         AuthResponse authResponse = authService.register(req);
-        return ApiResponseGenerator.success("User registered successfully", authResponse);
+        return ApiResponseGenerator.success(USER_REGISTERED_SUCCESS, authResponse);
     }
 
     @PostMapping("/login")
     public ApiResponseGenerator<AuthResponse> login(@RequestBody LoginRequest req) {
         AuthResponse authResponse = authService.login(req);
-        return ApiResponseGenerator.success("User logged in successfully", authResponse);
+        return ApiResponseGenerator.success(USER_LOGGED_IN_SUCCESS, authResponse);
     }
 }
