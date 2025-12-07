@@ -27,9 +27,19 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest req) {
 
-        if (userRepo.findByUserEmailOrUserName(req.getUserEmail(), req.getUserName()).isPresent()) {
+        if (userRepo.findByUserEmail(req.getUserEmail()).isPresent()) {
             throw new ResourceAlreadyExistsException(
-                    "User with email '" + req.getUserEmail() + "' or username '" + req.getUserName() + "' already exists"
+                    "User with email '" + req.getUserEmail() + "' already exists"
+            );
+        }
+        if (userRepo.findByUserName(req.getUserName()).isPresent()) {
+            throw new ResourceAlreadyExistsException(
+                    "User with username '" + req.getUserName() + "' already exists"
+            );
+        }
+        if (userRepo.findByUserPhone(req.getUserPhone()).isPresent()) {
+            throw new ResourceAlreadyExistsException(
+                    "User with phone '" + req.getUserPhone() + "' already exists"
             );
         }
 
@@ -78,6 +88,7 @@ public class AuthService {
         res.setUserFirstName(user.getUserFirstName());
         res.setUserLastName(user.getUserLastName());
         res.setUserPhone(user.getUserPhone());
+        res.setUserRole(user.getUserRole());
 
         return res;
     }
