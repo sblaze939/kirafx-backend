@@ -8,7 +8,7 @@ public class AuthResponse {
     private String token;
     private String userEmail;
     private String userRole;
-    private Long userId;
+    private String userId;
     private String userName;
     private String userFirstName;
     private String userLastName;

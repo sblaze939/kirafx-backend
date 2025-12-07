@@ -2,10 +2,10 @@ package com.kirafx.kirabackend.entities;
 
 import java.time.LocalDateTime;
 
+import com.kirafx.kirabackend.helper.HelperFunctions;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -18,9 +18,8 @@ import lombok.Data;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "user_id", length = 8)
+    private String userId;
 
     @Column(name = "user_email", nullable = false, unique = true)
     private String userEmail;
@@ -51,6 +50,9 @@ public class User {
 
     @PrePersist
     public void onCreate() {
+        if (userId == null) {
+            userId = HelperFunctions.generateUserId();
+        }
         createdAt = LocalDateTime.now();
     }
 
