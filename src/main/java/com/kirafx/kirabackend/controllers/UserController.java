@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kirafx.kirabackend.dto.ApiResponseGenerator;
@@ -34,8 +35,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/all")
-    public ApiResponseGenerator<List<UserResponse>> getAllUsers() {
-        List<UserResponse> users = userService.getAllUsers();
+    public ApiResponseGenerator<List<UserResponse>> getAllUsers(@RequestParam(name = "userRole", required = false) String role) {
+        List<UserResponse> users = userService.getAllUsers(role);
         return ApiResponseGenerator.success(GET_USERS_SUCCESS, users);
     }
 

@@ -49,15 +49,37 @@ public class UserService {
 
     public List<UserResponse> getAllUsers() {
         return userRepo.findAll().stream()
-                .map(user -> new UserResponse(
-                user.getUserId(),
-                user.getUserName(),
-                user.getUserEmail(),
-                user.getUserRole(),
-                user.getUserFirstName(),
-                user.getUserLastName(),
-                user.getUserPhone()
-        ))
+                .map(user -> {
+                    UserResponse res = new UserResponse();
+                    res.setUserId(user.getUserId());
+                    res.setUserName(user.getUserName());
+                    res.setUserEmail(user.getUserEmail());
+                    res.setUserRole(user.getUserRole());
+                    res.setUserFirstName(user.getUserFirstName());
+                    res.setUserLastName(user.getUserLastName());
+                    res.setUserPhone(user.getUserPhone());
+                    return res;
+                })
+                .toList();
+    }
+
+    public List<UserResponse> getAllUsers(String role) {
+        if (role == null || role.isEmpty()) {
+            return getAllUsers();
+        }
+        return userRepo.findAll().stream()
+                .filter(user -> role.equalsIgnoreCase(user.getUserRole()))
+                .map(user -> {
+                    UserResponse res = new UserResponse();
+                    res.setUserId(user.getUserId());
+                    res.setUserName(user.getUserName());
+                    res.setUserEmail(user.getUserEmail());
+                    res.setUserRole(user.getUserRole());
+                    res.setUserFirstName(user.getUserFirstName());
+                    res.setUserLastName(user.getUserLastName());
+                    res.setUserPhone(user.getUserPhone());
+                    return res;
+                })
                 .toList();
     }
 
