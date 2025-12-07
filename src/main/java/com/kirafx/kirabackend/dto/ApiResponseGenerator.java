@@ -20,8 +20,16 @@ public class ApiResponseGenerator<T> {
         return new ApiResponseGenerator<>(200, message, data);
     }
 
+    public static <T> ApiResponseGenerator<T> success(String message) {
+        return new ApiResponseGenerator<>(200, message, null);
+    }
+
     public static <T> ApiResponseGenerator<T> created(String message, T data) {
         return new ApiResponseGenerator<>(201, message, data);
+    }
+
+    public static <T> ApiResponseGenerator<T> created(String message) {
+        return new ApiResponseGenerator<>(201, message, null);
     }
 
     public static <T> ApiResponseGenerator<T> error(int statusCode, String message) {

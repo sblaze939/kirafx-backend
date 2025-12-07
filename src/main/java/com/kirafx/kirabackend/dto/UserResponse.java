@@ -1,11 +1,14 @@
 package com.kirafx.kirabackend.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class AuthResponse {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserResponse {
 
-    private String token;
     private String userEmail;
     private String userRole;
     private String userId;
